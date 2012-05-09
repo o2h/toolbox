@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+hostname = begin
+  print "Hostname: "
+  hostname = gets.chomp
+end while hostname.nil? or hostname.empty?
+
+print "User [#{hostname}]: "
+user = gets.chomp
+user = hostname if user.empty?
+
+print "Password [#{user.reverse}]: "
+password = gets.chomp
+password = user.reverse if password.empty?
+
+print "Memory [1024]: "
+memory = gets.chomp
+memory = 1024 if memory.empty?
+
+print "Disk [/dev/vms/#{hostname}]: "
+disk = gets.chomp
+disk = "/dev/vms/#{hostname}" if disk.empty?
+
+
+system *%W{ sudo vmbuilder kvm ubuntu -c /etc/vmbuilder.cnf -m #{memory} --user #{user} --pass #{password} --hostname #{hostname} --name #{hostname} --raw #{disk} -o }

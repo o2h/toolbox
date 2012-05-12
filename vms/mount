@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+sudo cryptsetup luksOpen /dev/storage/vms vms

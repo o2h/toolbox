@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+args = ARGV.dup
+ARGV.clear
+
 hostname = begin
   print "Hostname: "
   hostname = gets.chomp
@@ -22,4 +25,4 @@ disk = gets.chomp
 disk = "/dev/vms/#{hostname}" if disk.empty?
 
 
-system *%W{ sudo vmbuilder kvm ubuntu -c /etc/vmbuilder.cnf -m #{memory} --user #{user} --pass #{password} --hostname #{hostname} --name #{hostname} --raw #{disk} -o }
+system *%W{ sudo vmbuilder kvm ubuntu -c /etc/vmbuilder.cnf -m #{memory} --user #{user} --pass #{password} --hostname #{hostname} --name #{hostname} --raw #{disk} }, *args

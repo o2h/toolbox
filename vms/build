@@ -20,9 +20,4 @@ print "Memory [1024]: "
 memory = gets.chomp
 memory = 1024 if memory.empty?
 
-print "Disk [/dev/vms/#{hostname}]: "
-disk = gets.chomp
-disk = "/dev/vms/#{hostname}" if disk.empty?
-
-
-system *%W{ sudo vmbuilder kvm ubuntu -c /etc/vmbuilder.cnf -m #{memory} --user #{user} --pass #{password} --hostname #{hostname} --name #{hostname} --raw #{disk} }, *args
+system *%W{ sudo vmbuilder kvm ubuntu -c /etc/vmbuilder.cnf -m #{memory} --user #{user} --pass #{password} --hostname #{hostname} --name #{hostname} }, '-d', "/var/lib/libvirt/images/#{hostname}", *args
